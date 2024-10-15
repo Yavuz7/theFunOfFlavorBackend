@@ -1,10 +1,21 @@
-const http = require("http");
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const PORT = 3001;
 
-const app = http.createServer((request, response) => {
-  response.writeHead(200, { "Content-Type": "text/plain" });
-  response.end("Hello World");
+const cors = require("cors");
+
+let notes = ["1", "2"];
+console.log(process.env.TEST_KEY);
+
+app.get("/", (request, response) => {
+  response.send("Hello World!");
 });
 
-const PORT = 3001;
-app.listen(PORT);
-console.log(`Server running on port ${PORT}`);
+app.get("/api/notes", (request, response) => {
+  response.json(notes);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
