@@ -21,8 +21,10 @@ connect()
     console.log(error);
   });
 
-app.get("/", (request, response) => {
-  response.send("Hello World!");
+//SELECT * FROM RECIPE_SEARCH_INDEX
+app.get("/", async (request, response) => {
+  const query = "SELECT * FROM RECIPE_SEARCH_INDEX";
+  response.send(query);
 });
 
 app.listen(PORT, () => {
