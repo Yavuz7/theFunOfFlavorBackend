@@ -2,7 +2,7 @@
   "name": "thefunofflavorsever",
   "version": "1.0.0",
   "description": "Server for the fun of flavor",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",

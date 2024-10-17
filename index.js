@@ -7,6 +7,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connect } = require("./db.js");
 
+const recipeSearchRouter = require("./routes/recipeSearch.js");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,12 +23,8 @@ connect()
     console.log(error);
   });
 
-//SELECT * FROM RECIPE_SEARCH_INDEX
-app.get("/", async (request, response) => {
-  const query = "SELECT * FROM RECIPE_SEARCH_INDEX";
-  response.send(query);
-});
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+app.use("/api/recipes", recipeSearchRouter);
