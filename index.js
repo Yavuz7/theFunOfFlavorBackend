@@ -7,7 +7,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connect } = require("./db.js");
 
-const recipeSearchRouter = require("./routes/recipeSearch.js");
+const recipesRouter = require("./routes/recipes.js");
+const stepsRouter = require("./routes/steps.js");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,4 +28,5 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.use("/api/recipes", recipeSearchRouter);
+app.use("/api/recipes", recipesRouter);
+app.use("/api/steps", stepsRouter);
