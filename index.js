@@ -9,6 +9,7 @@ const { connect } = require("./db.js");
 
 const recipesRouter = require("./routes/recipes.js");
 const stepsRouter = require("./routes/steps.js");
+const suggestionsRouter = require("./routes/suggestions.js");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,3 +31,4 @@ app.listen(PORT, () => {
 
 app.use("/api/recipes", recipesRouter);
 app.use("/api/steps", stepsRouter);
+app.use("/api/suggestions", suggestionsRouter);

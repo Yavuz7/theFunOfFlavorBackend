@@ -7,9 +7,16 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const offSet = req.body.offSet ? parseInt(req.offSet) : 0;
   const query = `
-  SELECT * FROM Recipes 
-  ORDER BY Votes DESC,
-  RecipeID OFFSET ${offSet} 
+  SELECT 
+    RecipeID,
+    UserID,
+    RecipeName,
+    Votes 
+  FROM Recipes 
+  ORDER BY 
+    Votes DESC,
+    RecipeID 
+  OFFSET ${offSet} 
   ROWS FETCH NEXT 10 ROWS ONLY`;
   try {
     const result = await sql.query(query);
@@ -23,7 +30,12 @@ router.get("/", async (req, res) => {
 //Get Singular recipe
 router.get("/:id", async (req, res) => {
   const query = `
-  SELECT * FROM Recipes 
+  SELECT 
+    RecipeID,
+    UserID,
+    RecipeName,
+    Votes 
+  FROM Recipes 
   WHERE RecipeID=${req.params.id}`;
   try {
     const result = await sql.query(query);
