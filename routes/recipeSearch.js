@@ -3,9 +3,10 @@ const { sql } = require("../db.js");
 
 const router = express.Router();
 
+//Retrieve Recipes
 router.get("/", async (req, res) => {
-  //Learn mssql requests
-  const newQuery = "SELECT * FROM RECIPE_SEARCH_INDEX";
+  const offSet = req.offSet ? req.offSet : 0;
+  const newQuery = `SELECT * FROM Recipes ORDER BY Votes OFFSET ${offSet} ROWS FETCH NEXT 10 ROWS ONLY`;
   try {
     const result = await sql.query(newQuery);
     res.send(result.recordset);
@@ -13,7 +14,6 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  // const result = await
 });
 
 //Get singular recipe
