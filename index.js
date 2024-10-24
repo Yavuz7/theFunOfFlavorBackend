@@ -1,11 +1,11 @@
 require("dotenv").config();
 const express = require("express");
+const { sql } = require("./db.js");
 const app = express();
 const PORT = 3001;
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connect } = require("./db.js");
 
 const recipesRouter = require("./routes/recipes.js");
 const stepsRouter = require("./routes/steps.js");
@@ -15,15 +15,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
-
-connect()
-  .then((connection) => {
-    console.log("Connected To Database");
-  })
-  .catch((error) => {
-    console.log("Couldn't Connect To Database");
-    console.log(error);
-  });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

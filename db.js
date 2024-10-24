@@ -11,8 +11,12 @@ const config = {
     trustServerCertificate: true,
   },
 };
+//Connect to Db on start
+sql
+  .connect(config)
+  .then(() => console.log("Connected To Database"))
+  .catch((err) => console.error("Error connecting to database", err));
 
 module.exports = {
-  connect: () => sql.connect(config),
   sql,
 };

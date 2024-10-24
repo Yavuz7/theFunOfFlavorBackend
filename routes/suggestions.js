@@ -5,9 +5,8 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   console.log(req.body);
-  //To do, fix Getting body
   const { StepID, UserID, SuggestionText } = req.body;
-  console.log(StepID);
+  console.log(SuggestionText);
   const query = `
     INSERT INTO Suggestions (
     StepID, 
@@ -15,14 +14,22 @@ router.post("/", async (req, res) => {
     SuggestionText
     )
     VALUES (
-    ${StepID}, 
-    ${UserID}, 
-    ${SuggestionText}
+    @StepID, 
+    @UserID, 
+    @SuggestionText
     );`;
   try {
-    const result = await sql.query(query);
+    const pool = await sql.connect();
+
+    const result = await pool
+      .request()
+      .input("StepID", sql.Int, StepID)
+      .input("UserID", sql.Int, UserID)
+      .input("SuggestionText", sql.NVarChar, SuggestionText)
+      .query(query);
+
     res.send(result.recordset);
-    console.log(result.recordset);
+    console.log(result.rowsAffected);
   } catch (error) {
     console.log(error);
   }
