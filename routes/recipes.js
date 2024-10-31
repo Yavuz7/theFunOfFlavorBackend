@@ -1,6 +1,8 @@
 const express = require("express");
 const { sql } = require("../db.js");
 
+const { idParamValidation, validate } = require("../validators.js");
+
 const router = express.Router();
 
 //Retrieve Recipes
@@ -28,7 +30,7 @@ router.get("/", async (req, res) => {
 });
 
 //Get Singular recipe
-router.get("/:id", async (req, res) => {
+router.get("/:id", [...idParamValidation(`id`)], validate, async (req, res) => {
   const query = `
   SELECT 
     RecipeID,
